@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(1200px 800px at 80% -10%, rgba(84, 224, 214, 0.06), transparent 60%),
+    radial-gradient(1000px 700px at -10% 110%, rgba(187, 155, 255, 0.06), transparent 55%),
+    #050811;
+  color: #eaf2ff;
+  font-family: "Inter", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: #54e0d6;
+  color: #04121a;
+}
+
+/* thin scrollbar */
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgba(140, 165, 200, 0.25);
+  border-radius: 999px;
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl border border-line bg-white/[0.04] backdrop-blur-sm;
+  }
+  .eyebrow {
+    @apply font-mono text-xs uppercase tracking-[0.18em] text-signal flex items-center gap-3;
+  }
+  .eyebrow::before {
+    content: "";
+    @apply inline-block h-[2px] w-8 bg-signal shadow-glow;
+  }
+  .btn {
+    @apply rounded-lg border border-line2 bg-white/[0.03] px-4 py-2 font-mono text-sm
+      text-text transition hover:border-signal hover:text-signal disabled:opacity-40
+      disabled:hover:border-line2 disabled:hover:text-text;
+  }
+  .chip {
+    @apply inline-flex items-center rounded-md border px-2 py-1 font-mono text-sm;
+  }
+}
+
+/* range input themed */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  outline: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #54e0d6;
+  box-shadow: 0 0 10px rgba(84, 224, 214, 0.7);
+  cursor: pointer;
+  border: 0;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: 0;
+  border-radius: 50%;
+  background: #54e0d6;
+  box-shadow: 0 0 10px rgba(84, 224, 214, 0.7);
+  cursor: pointer;
+}
