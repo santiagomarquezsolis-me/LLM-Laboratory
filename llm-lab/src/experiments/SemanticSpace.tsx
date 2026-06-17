@@ -11,6 +11,7 @@ const CATEGORIES: Cat[] = [
   { name: "realeza", color: "#ffc24b", words: ["rey", "reina", "trono", "corona"] },
   { name: "espacio", color: "#54e0d6", words: ["satélite", "órbita", "cohete", "planeta"] },
   { name: "emociones", color: "#bb9bff", words: ["alegría", "miedo", "tristeza", "calma"] },
+  { name: "personas", color: "#ff8f6b", words: ["hombre", "mujer", "niño", "niña"] },
 ];
 
 type WordVec = {

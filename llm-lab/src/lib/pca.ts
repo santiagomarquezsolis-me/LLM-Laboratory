@@ -53,14 +53,48 @@ function normalize(v: Float64Array): number {
   return n;
 }
 
-function powerIteration(cov: Float64Array, dim: number, iters = 80): Float64Array {
+// PRNG determinista (mulberry32). La iteración de potencias necesita un vector
+// inicial; si usáramos Math.random() la proyección cambiaría —rotada o
+// reflejada— en cada cálculo. Con semilla fija el mapa es estable y reproducible.
+function mulberry32(seed: number): () => number {
+  let s = seed >>> 0;
+  return () => {
+    s = (s + 0x6d2b79f5) | 0;
+    let t = Math.imul(s ^ (s >>> 15), 1 | s);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+// Orienta el autovector de forma determinista: el componente de mayor magnitud
+// queda positivo. Evita que el eje aparezca "espejado" entre ejecuciones.
+function orientSign(v: Float64Array) {
+  let maxAbs = 0;
+  let idx = 0;
+  for (let i = 0; i < v.length; i++) {
+    const a = Math.abs(v[i]);
+    if (a > maxAbs) {
+      maxAbs = a;
+      idx = i;
+    }
+  }
+  if (v[idx] < 0) for (let i = 0; i < v.length; i++) v[i] = -v[i];
+}
+
+function powerIteration(
+  cov: Float64Array,
+  dim: number,
+  rng: () => number,
+  iters = 120
+): Float64Array {
   let v: Float64Array = new Float64Array(dim);
-  for (let i = 0; i < dim; i++) v[i] = Math.random() - 0.5;
+  for (let i = 0; i < dim; i++) v[i] = rng() - 0.5;
   normalize(v);
   for (let it = 0; it < iters; it++) {
     v = matVec(cov, v, dim);
     normalize(v);
   }
+  orientSign(v);
   return v;
 }
 
@@ -78,9 +112,10 @@ export function pca2(vectors: Float32Array[] | number[][]): Point2D[] {
   if (rows.length === 0) return [];
   const { centered, dim } = centerColumns(rows);
   const cov = covariance(centered, dim);
-  const pc1 = powerIteration(cov, dim);
+  const rng = mulberry32(0x5eed);
+  const pc1 = powerIteration(cov, dim, rng);
   deflate(cov, pc1, dim);
-  const pc2 = powerIteration(cov, dim);
+  const pc2 = powerIteration(cov, dim, rng);
   const pts = centered.map((row) => {
     let x = 0;
     let y = 0;
