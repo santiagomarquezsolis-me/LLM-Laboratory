@@ -3,6 +3,7 @@ import { Tokenizer } from "./Tokenizer";
 import { NextToken } from "./NextToken";
 import { Temperature } from "./Temperature";
 import { SemanticSpace } from "./SemanticSpace";
+import { Alignment } from "./Alignment";
 import { HallucinationTriangle } from "./HallucinationTriangle";
 
 export type Experiment = {
@@ -60,5 +61,14 @@ export const EXPERIMENTS: Experiment[] = [
     tagline: "Conocimiento, presión y fuentes: cuándo inventa.",
     color: "#ff5d8f",
     Component: HallucinationTriangle,
+  },
+  {
+    id: "alignment",
+    num: "06",
+    act: "Acto III · En quién confiamos",
+    title: "¿Sabe, puede o debe?",
+    tagline: "El modelo que usas no es el base: mira por qué dice «no».",
+    color: "#bb9bff",
+    Component: Alignment,
   },
 ];
