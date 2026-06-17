@@ -58,6 +58,16 @@ export function Temperature() {
         “osadía”.
       </p>
 
+      <ModelPicker
+        value={modelId}
+        disabled={state.loading}
+        onChange={(id) => {
+          setModelId(id);
+          setTokens([]);
+          setSample("");
+        }}
+      />
+
       <div className="rounded-xl border border-line bg-black/30 p-4">
         <div className="mb-2 eyebrow">Contexto</div>
         <input
@@ -125,8 +135,8 @@ export function Temperature() {
       )}
 
       <p className="font-mono text-xs text-dim">
-        Modelo: distilgpt2 (en inglés). Sube la temperatura por encima de 1.5 y
-        observa cómo el texto se desmorona.
+        Sube la temperatura por encima de 1.5 y observa cómo el texto se
+        desmorona. Prueba el modelo multilingüe (BLOOM) para generar en español.
       </p>
     </div>
   );
