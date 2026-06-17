@@ -1287,6 +1287,53 @@ Marsella    1%  ▏
   </div>
 </section>
 
+<!-- ============ 39b zkML / PRUEBAS DE CONOCIMIENTO CERO ============ -->
+<section id="zkml" class="slide" data-sec="Futuro · zkML">
+  <span class="tick tl"></span><span class="tick br"></span>
+  <div class="wrap">
+    <p class="eyebrow vio rv">Auditoría criptográfica · zkML</p>
+    <h2 class="h rv d1">Pruebas de conocimiento cero para auditar la IA</h2>
+    <div class="rv d2" aria-hidden="true" style="margin-top:.8rem">
+      <svg viewBox="0 0 1080 130" width="100%" style="max-width:1080px">
+        <g font-family="JetBrains Mono" text-anchor="middle">
+          <g>
+            <rect x="0" y="18" width="180" height="74" rx="10" fill="rgba(122,160,255,.1)" stroke="rgba(122,160,255,.45)"/>
+            <text x="90" y="48" font-size="15" fill="#cdd9f5">Modelo + entrada</text>
+            <text x="90" y="68" font-size="11.5" fill="#7e93b5">pesos comprometidos · hash</text>
+          </g>
+          <g>
+            <rect x="250" y="18" width="240" height="74" rx="10" fill="rgba(84,224,214,.1)" stroke="rgba(84,224,214,.5)"/>
+            <text x="370" y="48" font-size="15" fill="#bff7f1">Prover</text>
+            <text x="370" y="68" font-size="11.5" fill="#7fb9b3">ejecuta inferencia + prueba ZK</text>
+          </g>
+          <g>
+            <rect x="560" y="18" width="160" height="74" rx="10" fill="rgba(187,155,255,.12)" stroke="rgba(187,155,255,.5)"/>
+            <text x="640" y="48" font-size="15" fill="#ddccff">Prueba ZK</text>
+            <text x="640" y="68" font-size="11.5" fill="#9d8fc4">sucinta y pública</text>
+          </g>
+          <g>
+            <rect x="790" y="18" width="290" height="74" rx="10" fill="rgba(109,255,176,.1)" stroke="rgba(109,255,176,.5)"/>
+            <text x="935" y="48" font-size="15" fill="#adf5cd">Verificador ✔</text>
+            <text x="935" y="68" font-size="11.5" fill="#7fc9a3">valida sin ver pesos ni datos</text>
+          </g>
+          <g fill="none" stroke="#5d6f8c" stroke-width="1.5" marker-end="url(#arr7)">
+            <path d="M182 55 H248"/><path d="M492 55 H558"/><path d="M722 55 H788"/>
+          </g>
+        </g>
+        <defs><marker id="arr7" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9 z" fill="#5d6f8c"/></marker></defs>
+      </svg>
+    </div>
+    <p class="lead rv d3" style="margin-top:1.1rem">Permite <strong>demostrar matemáticamente que una respuesta salió de un modelo concreto, ejecutado honestamente</strong> —sin revelar sus pesos ni los datos de entrada—. Útil para procedencia y cumplimiento en banca, sanidad o agentes autónomos.</p>
+    <p class="lead rv d4" style="margin-top:.7rem">Pero ojo: <span class="ha">verifica integridad y procedencia, no veracidad</span>. <span class="sig">No elimina las alucinaciones</span>; ataca otra capa de confianza —que el cómputo no haya hecho trampa.</p>
+    <div class="pillrow rv d5">
+      <span class="pill">zkML · EZKL · Lagrange · Polyhedra</span>
+      <span class="pill">integridad de cómputo</span>
+      <span class="pill">privacidad de pesos y datos</span>
+    </div>
+    <p class="small rv d5" style="margin-top:.7rem">Madurando en 2026 con GPU y <em>folding</em>; a escala LLM el coste aún es alto (orden de segundos por token). Fuentes: EZKL · Polyhedra zkML.</p>
+  </div>
+</section>
+
 <!-- ============ 40 CONCLUSIONES ============ -->
 <section class="slide" data-sec="Conclusiones">
   <span class="tick tl"></span><span class="tick br"></span>
