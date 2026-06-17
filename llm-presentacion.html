@@ -209,6 +209,16 @@ ul.clean.tight li{margin:.5rem 0;font-size:clamp(.98rem,1.3vw,1.2rem)}
 .f-ok{background:linear-gradient(90deg,var(--signal),var(--green))}
 .f-un{background:linear-gradient(90deg,var(--azure),#9ab6ff)}
 .f-ha{background:linear-gradient(90deg,var(--warn),var(--halluc))}
+.simgrid{display:grid;grid-template-columns:1fr 1.05fr;gap:2.4rem;align-items:center}
+@media(max-width:900px){.simgrid{grid-template-columns:1fr}}
+.tribox{display:flex;flex-direction:column;align-items:center;gap:.7rem}
+.tribox svg{width:100%;max-width:340px}
+.tribox .verdict{font-family:var(--mono);font-size:.82rem;letter-spacing:.12em;text-transform:uppercase}
+.tri-pt,.tri-halo,.tri-vx{transition:cx .45s cubic-bezier(.2,.7,.2,1),cy .45s cubic-bezier(.2,.7,.2,1),r .45s cubic-bezier(.2,.7,.2,1)}
+.presets{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
+.presets button{font-family:var(--mono);font-size:.78rem;color:var(--muted);background:rgba(255,255,255,.03);
+  border:1px solid var(--line2);border-radius:8px;padding:.45rem .7rem;cursor:pointer;transition:.18s}
+.presets button:hover{border-color:var(--signal);color:var(--signal)}
 
 .footerline{position:absolute;left:0;right:0;bottom:0;height:3px;
   background:linear-gradient(90deg,var(--signal),var(--azure),var(--violet),var(--warn))}
@@ -849,22 +859,54 @@ Marsella    1%  ▏
 </section>
 
 <!-- ============ 25 SIMULADOR (interactivo) ============ -->
-<section class="slide warm" data-sec="Acto II · Demo">
+<section id="simulador" class="slide warm" data-sec="Acto II · Demo">
   <span class="tick tl"></span><span class="tick tr"></span>
   <div class="wrap">
     <p class="eyebrow warn rv">Demo en directo · interactivo</p>
-    <h2 class="h rv d1" style="margin-bottom:1.6rem">El triángulo de la alucinación</h2>
-    <div class="sim">
+    <h2 class="h rv d1" style="margin-bottom:.6rem">El triángulo de la alucinación</h2>
+    <p class="lead rv d1" style="margin:0 0 1.4rem;max-width:62ch">Una alucinación no nace solo de la ignorancia del modelo, sino de tres fuerzas en tensión. Mueve los controles y observa hacia qué vértice se desplaza el punto: cuando falta <span class="gr">conocimiento</span> y faltan <span class="az">fuentes</span>, la <span class="ha">presión por responder</span> empuja al modelo a inventar en vez de admitir «no sé».</p>
+    <div class="simgrid">
       <div class="rv d2">
         <div class="ctrl"><label>Conocimiento del sistema <b id="vK">55%</b></label><input id="K" type="range" min="0" max="100" value="55"></div>
         <div class="ctrl"><label>Presión por responder <b id="vP">70%</b></label><input id="P" type="range" min="0" max="100" value="70"></div>
         <div class="ctrl"><label>Acceso a fuentes (RAG) <b id="vF">25%</b></label><input id="F" type="range" min="0" max="100" value="25"></div>
-        <p class="small" style="margin-top:1rem">Mueve los controles: cuando falta conocimiento y fuentes pero sobra presión, las alucinaciones se disparan.</p>
+        <div class="presets">
+          <button data-k="25" data-p="85" data-f="10">Pregunta difícil, con prisa</button>
+          <button data-k="45" data-p="20" data-f="85">Con RAG y sin presión</button>
+          <button data-k="90" data-p="80" data-f="40">Dominio que conoce bien</button>
+          <button data-k="5" data-p="100" data-f="0">El peor caso</button>
+        </div>
+        <div class="readout" style="margin-top:1.4rem">
+          <div class="meter"><div class="mh"><span class="lab">Aciertos</span><span class="val sig" id="oOk">—</span></div><div class="track"><div class="fill f-ok" id="bOk"></div></div></div>
+          <div class="meter"><div class="mh"><span class="lab">Reconoce «no sé»</span><span class="val az" id="oUn">—</span></div><div class="track"><div class="fill f-un" id="bUn"></div></div></div>
+          <div class="meter"><div class="mh"><span class="lab">Alucinaciones</span><span class="val ha" id="oHa">—</span></div><div class="track"><div class="fill f-ha" id="bHa"></div></div></div>
+        </div>
       </div>
-      <div class="readout rv d3">
-        <div class="meter"><div class="mh"><span class="lab">Aciertos</span><span class="val sig" id="oOk">—</span></div><div class="track"><div class="fill f-ok" id="bOk"></div></div></div>
-        <div class="meter"><div class="mh"><span class="lab">Reconoce «no sé»</span><span class="val az" id="oUn">—</span></div><div class="track"><div class="fill f-un" id="bUn"></div></div></div>
-        <div class="meter"><div class="mh"><span class="lab">Alucinaciones</span><span class="val ha" id="oHa">—</span></div><div class="track"><div class="fill f-ha" id="bHa"></div></div></div>
+      <div class="tribox rv d3">
+        <svg viewBox="0 0 320 300" aria-hidden="true">
+          <defs>
+            <radialGradient id="ptGlow" cx="50%" cy="50%" r="50%">
+              <stop id="ptGlowA" offset="0%" stop-color="#ff5d8f" stop-opacity=".9"/>
+              <stop id="ptGlowB" offset="100%" stop-color="#ff5d8f" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <polygon points="160,34 38,250 282,250" fill="rgba(255,255,255,.02)" stroke="var(--line2)" stroke-width="1.4"/>
+          <line id="gHa" x1="160" y1="34"  x2="160" y2="170" stroke="rgba(255,93,143,.25)"  stroke-width="1" stroke-dasharray="3 4"/>
+          <line id="gOk" x1="38"  y1="250" x2="160" y2="170" stroke="rgba(109,255,176,.25)" stroke-width="1" stroke-dasharray="3 4"/>
+          <line id="gUn" x1="282" y1="250" x2="160" y2="170" stroke="rgba(122,160,255,.25)" stroke-width="1" stroke-dasharray="3 4"/>
+          <circle class="tri-vx" id="vxHa" cx="160" cy="34"  r="6" fill="rgba(255,93,143,.18)"/>
+          <circle cx="160" cy="34"  r="4" fill="#ff5d8f"/>
+          <text x="160" y="20"  text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#ff5d8f">Alucinación</text>
+          <circle class="tri-vx" id="vxOk" cx="38"  cy="250" r="6" fill="rgba(109,255,176,.18)"/>
+          <circle cx="38"  cy="250" r="4" fill="#6dffb0"/>
+          <text x="32"  y="274" text-anchor="start" font-family="JetBrains Mono" font-size="11" fill="#6dffb0">Aciertos</text>
+          <circle class="tri-vx" id="vxUn" cx="282" cy="250" r="6" fill="rgba(122,160,255,.18)"/>
+          <circle cx="282" cy="250" r="4" fill="#7aa0ff"/>
+          <text x="288" y="274" text-anchor="end" font-family="JetBrains Mono" font-size="11" fill="#7aa0ff">«No sé»</text>
+          <circle class="tri-halo" id="pHalo" cx="160" cy="170" r="26" fill="url(#ptGlow)"/>
+          <circle class="tri-pt" id="pDot" cx="160" cy="170" r="7" fill="#ff5d8f" stroke="#04121a" stroke-width="2"/>
+        </svg>
+        <span class="verdict" id="verdict">—</span>
       </div>
     </div>
   </div>
@@ -1195,6 +1237,11 @@ Marsella    1%  ▏
     var K=document.getElementById('K'),P=document.getElementById('P'),F=document.getElementById('F');
     if(!K)return;
     function clamp(x){return Math.max(0,Math.min(100,x));}
+    // Vértices del triángulo (mismo modelo que el laboratorio en código).
+    var Vha={x:160,y:34}, Vok={x:38,y:250}, Vun={x:282,y:250};
+    var Cha=[255,93,143], Cok=[109,255,176], Cun=[122,160,255];
+    function rgb(c){return 'rgb('+c[0]+','+c[1]+','+c[2]+')';}
+    function set(id,a){var e=document.getElementById(id);for(var k in a)e.setAttribute(k,a[k]);}
     function calc(){
       var k=+K.value,p=+P.value,f=+F.value;
       document.getElementById('vK').textContent=k+'%';
@@ -1209,8 +1256,27 @@ Marsella    1%  ▏
       document.getElementById('oOk').textContent=ok+'%'; document.getElementById('bOk').style.width=ok+'%';
       document.getElementById('oUn').textContent=abstain+'%'; document.getElementById('bUn').style.width=abstain+'%';
       document.getElementById('oHa').textContent=halluc+'%'; document.getElementById('bHa').style.width=halluc+'%';
+      // ---- triángulo ----
+      var wo=ok/100, wu=abstain/100, wh=halluc/100;
+      var px=Vok.x*wo+Vun.x*wu+Vha.x*wh, py=Vok.y*wo+Vun.y*wu+Vha.y*wh;
+      var mix=[0,1,2].map(function(i){return Math.round(Cok[i]*wo+Cun[i]*wu+Cha[i]*wh);});
+      set('pDot',{cx:px,cy:py,fill:rgb(mix)});
+      set('pHalo',{cx:px,cy:py});
+      document.getElementById('ptGlowA').setAttribute('stop-color',rgb(mix));
+      document.getElementById('ptGlowB').setAttribute('stop-color',rgb(mix));
+      set('vxOk',{r:6+wo*7}); set('vxUn',{r:6+wu*7}); set('vxHa',{r:6+wh*7});
+      set('gOk',{x2:px,y2:py}); set('gUn',{x2:px,y2:py}); set('gHa',{x2:px,y2:py});
+      var v=document.getElementById('verdict');
+      if(halluc>=ok&&halluc>=abstain){v.textContent='Riesgo de alucinación';v.style.color=rgb(Cha);}
+      else if(abstain>=ok){v.textContent='Tiende a reconocer «no sé»';v.style.color=rgb(Cun);}
+      else{v.textContent='Tiende a acertar';v.style.color=rgb(Cok);}
     }
     [K,P,F].forEach(function(el){el.addEventListener('input',calc);});
+    Array.prototype.forEach.call(document.querySelectorAll('.presets button'),function(b){
+      b.addEventListener('click',function(){
+        K.value=b.getAttribute('data-k');P.value=b.getAttribute('data-p');F.value=b.getAttribute('data-f');calc();
+      });
+    });
     calc();
   })();
 
