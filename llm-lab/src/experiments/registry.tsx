@@ -3,6 +3,7 @@ import { Tokenizer } from "./Tokenizer";
 import { NextToken } from "./NextToken";
 import { Temperature } from "./Temperature";
 import { SemanticSpace } from "./SemanticSpace";
+import { HallucinationTriangle } from "./HallucinationTriangle";
 
 export type Experiment = {
   id: string;
@@ -50,5 +51,14 @@ export const EXPERIMENTS: Experiment[] = [
     tagline: "El significado se convierte en geometría.",
     color: "#bb9bff",
     Component: SemanticSpace,
+  },
+  {
+    id: "hallucination-triangle",
+    num: "05",
+    act: "Acto II · Alucinación",
+    title: "Triángulo de la alucinación",
+    tagline: "Conocimiento, presión y fuentes: cuándo inventa.",
+    color: "#ff5d8f",
+    Component: HallucinationTriangle,
   },
 ];

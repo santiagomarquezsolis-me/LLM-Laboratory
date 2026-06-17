@@ -135,10 +135,10 @@ function Home({ onGo }: { onGo: (id: string) => void }) {
         <span className="text-halluc">calcula</span>) una IA
       </h1>
       <p className="mt-5 max-w-[60ch] text-lg text-muted">
-        Cuatro experimentos en vivo para entender qué ocurre dentro de un modelo
+        Cinco experimentos en vivo para entender qué ocurre dentro de un modelo
         de lenguaje: cómo trocea el texto, cómo predice el siguiente token, qué
-        hace la temperatura y cómo convierte el significado en geometría. Modelos
-        reales, ejecutándose en tu propio navegador.
+        hace la temperatura, cómo convierte el significado en geometría y por qué
+        a veces alucina. Modelos reales, ejecutándose en tu propio navegador.
       </p>
 
       <div className="mt-10 grid gap-4 sm:grid-cols-2">
